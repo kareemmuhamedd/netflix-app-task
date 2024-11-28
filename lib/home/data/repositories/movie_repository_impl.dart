@@ -14,6 +14,7 @@ class MovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<Failure, List<TvShowResponse>>> getMovies() async {
     try {
+      print('calling remote data source');
       final movies = await moviesRemoteDataSource.getMovies();
       return right(movies);
     } on ServerException catch (e) {
