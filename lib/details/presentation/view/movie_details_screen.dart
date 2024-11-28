@@ -11,7 +11,20 @@ import '../../../home/domain/entities/tv_show_response.dart';
 class MovieDetailsScreen extends StatelessWidget {
   final TvShowResponse movie;
 
-  const MovieDetailsScreen({
+  const MovieDetailsScreen({super.key, required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    return MovieDetailsView(
+      movie: movie,
+    );
+  }
+}
+
+class MovieDetailsView extends StatelessWidget {
+  final TvShowResponse movie;
+
+  const MovieDetailsView({
     super.key,
     required this.movie,
   });

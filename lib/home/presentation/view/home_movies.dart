@@ -93,7 +93,7 @@ class _HomeMoviesViewState extends State<HomeMoviesView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MovieDetailsScreen(
+                          builder: (context) => MovieDetailsView(
                             movie: movie,
                           ),
                         ),

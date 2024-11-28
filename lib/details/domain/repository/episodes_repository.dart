@@ -4,5 +4,5 @@ import 'package:fpdart/fpdart.dart';
 import '../../../core/errors/failures.dart';
 
 abstract interface class EpisodesRepository {
-  Future<Either<Failure, List<EpisodeEntity>>> getEpisodes(String url);
+  Future<Either<Failure, EpisodeEntity>> getEpisodes(String url);
 }
