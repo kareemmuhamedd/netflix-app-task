@@ -13,19 +13,16 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
 
   @override
   Future<List<TvShowResponseModel>> getMovies() async {
-    //try{
-      final response = await _dio.get('https://api.tvmaze.com/search/shows?q=all');
+    try {
+      final response =
+          await _dio.get('https://api.tvmaze.com/search/shows?q=all');
       final List<TvShowResponseModel> tvShowResponse = [];
       for (var item in response.data) {
         tvShowResponse.add(TvShowResponseModel.fromJson(item));
       }
       return tvShowResponse;
-    // }
-    // catch(e){
-    //   print('i found an error in data source');
-    //   print(e.toString());
-    //   throw ServerException(e.toString());
-    // }
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 }
-
