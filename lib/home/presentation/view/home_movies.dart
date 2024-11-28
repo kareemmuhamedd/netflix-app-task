@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_netflix_app/core/di/dependency_injection.dart';
+import 'package:flutter_netflix_app/details/presentation/view/movie_details_screen.dart';
 import 'package:flutter_netflix_app/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_netflix_app/home/presentation/widgets/grid_view_item.dart';
 import 'package:flutter_netflix_app/home/presentation/widgets/widgets.dart';
@@ -92,7 +93,7 @@ class _HomeMoviesViewState extends State<HomeMoviesView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailScreen(
+                          builder: (context) => MovieDetailsScreen(
                             movie: movie,
                           ),
                         ),

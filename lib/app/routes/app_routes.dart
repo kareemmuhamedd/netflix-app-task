@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_app/details/presentation/view/movie_details_screen.dart';
 import 'package:flutter_netflix_app/home/presentation/view/home_movies.dart';
 
 import 'package:go_router/go_router.dart';
@@ -46,13 +47,7 @@ GoRouter router() {
                 path: '/search',
                 pageBuilder: (context, state) {
                   return CustomTransitionPage(
-                    child: const Scaffold(
-                      body: Center(
-                        child: Text(
-                          'Search',
-                        ),
-                      ),
-                    ),
+                    child: const Placeholder(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return FadeTransition(
