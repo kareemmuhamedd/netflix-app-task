@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_app/core/extensions/text/app_text.dart';
 
 class GridViewItem extends StatelessWidget {
   const GridViewItem({
@@ -48,7 +49,7 @@ class GridViewItem extends StatelessWidget {
           ),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-        ),
+        ).removeHtmlTags(),
       ],
     );
   }
