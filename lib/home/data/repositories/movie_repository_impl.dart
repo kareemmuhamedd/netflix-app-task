@@ -1,6 +1,6 @@
 import 'package:flutter_netflix_app/core/errors/exception.dart';
 import 'package:flutter_netflix_app/core/errors/failures.dart';
-import 'package:flutter_netflix_app/home/domain/entities/tv_show_response.dart';
+import 'package:flutter_netflix_app/home/data/models/tv_show_response_model.dart';
 import 'package:flutter_netflix_app/home/domain/repository/movie_repository.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -12,9 +12,8 @@ class MovieRepositoryImpl implements MovieRepository {
   final MoviesRemoteDataSource moviesRemoteDataSource;
 
   @override
-  Future<Either<Failure, List<TvShowResponse>>> getMovies() async {
+  Future<Either<Failure, List<TvShowResponseModel>>> getMovies() async {
     try {
-      print('calling remote data source');
       final movies = await moviesRemoteDataSource.getMovies();
       return right(movies);
     } on ServerException catch (e) {
