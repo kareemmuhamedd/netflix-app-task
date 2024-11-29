@@ -2,6 +2,7 @@ part of 'search_bloc.dart';
 
 enum SearchStatus {
   initial,
+  loading,
   loaded,
   loadFailed,
 }

@@ -5,7 +5,7 @@
 //
 // import 'package:go_router/go_router.dart';
 //
-// import '../../home/presentation/view/home_screen.dart';
+// import '../../home/presentation/view/entry_point.dart';
 //
 // final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 //

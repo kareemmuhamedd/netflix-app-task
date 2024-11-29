@@ -10,6 +10,7 @@ class SearchField extends StatelessWidget {
     this.hintText,
     this.focusNode,
     this.initialValue,
+    this.onChanged,
     this.radius,
   });
 
@@ -19,25 +20,19 @@ class SearchField extends StatelessWidget {
   final TextInputType? keyboardType;
   final void Function()? onEditingComplete;
   final TextEditingController? controller;
+  final void Function(String)? onChanged;
   final FocusNode? focusNode;
   final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       cursorColor: Colors.white,
       textInputAction: TextInputAction.next,
       onEditingComplete: onEditingComplete,
-      keyboardType: keyboardType,
       initialValue: initialValue,
       controller: controller,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Please enter a valid value";
-        } else {
-          return null;
-        }
-      },
       style: const TextStyle(
         color: Colors.white,
         fontSize: 16.0,

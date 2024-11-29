@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_app/core/constants/assets_images.dart';
 import 'package:flutter_netflix_app/core/extensions/text/app_text.dart';
 
 class GridViewItem extends StatelessWidget {
@@ -18,14 +20,18 @@ class GridViewItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Thumbnail
+        // Thumbnail with CachedNetworkImage
         ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            thumbnail,
+          child: CachedNetworkImage(
+            imageUrl: thumbnail,
             height: 150,
             width: double.infinity,
             fit: BoxFit.cover,
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: errorWidget,
           ),
         ),
         const SizedBox(height: 8),
