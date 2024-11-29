@@ -33,7 +33,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       );
       },
       (movies) {
-        print(movies.length);
         emit(
         state.copyWith(
           status: HomeStatus.loaded,

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';  // Import Bloc package
+import 'package:flutter_bloc/flutter_bloc.dart'; // Import Bloc package
 
 import '../../core/bottom_nav_bar_data/bottom_nav_bar_data.dart';
 import '../cubit/bottom_nav_cubit.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
-
     super.key,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +41,7 @@ class BottomNavBar extends StatelessWidget {
             return BottomNavigationBar(
               currentIndex: currentIndex,
               onTap: (index) {
-                // Update the BottomNavCubit state when an item is tapped
                 context.read<BottomNavCubit>().setIndex(index);
-
-                // You can also use the navigationShell to handle internal navigation
-
               },
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.transparent,
@@ -63,11 +56,11 @@ class BottomNavBar extends StatelessWidget {
               items: navigationBarItems
                   .map(
                     (toElement) => BottomNavigationBarItem(
-                  icon: toElement.child ?? Icon(toElement.icon),
-                  label: toElement.label,
-                  tooltip: toElement.tooltip,
-                ),
-              )
+                      icon: toElement.child ?? Icon(toElement.icon),
+                      label: toElement.label,
+                      tooltip: toElement.tooltip,
+                    ),
+                  )
                   .toList(),
             );
           },

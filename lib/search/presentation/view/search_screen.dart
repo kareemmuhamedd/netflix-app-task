@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_netflix_app/core/constants/assets_images.dart';
 import 'package:flutter_netflix_app/search/presentation/bloc/search_bloc.dart';
 import 'package:flutter_netflix_app/search/presentation/widgets/search_app_bar.dart';
 import '../../../core/di/dependency_injection.dart';
@@ -83,7 +84,7 @@ class _SearchViewState extends State<SearchView> {
                 },
                 child: GridViewItem(
                   thumbnail: movie.show.image.original.isEmpty
-                      ? 'https://wallpaperfx.com/view_image/walle-movie-1280x1024-wallpaper-2731.jpg'
+                      ? AssetsImages.placeHolderNetworkImage
                       : movie.show.image.original,
                   title: movie.show.name,
                   summary: movie.show.summary,
