@@ -12,7 +12,7 @@ class EpisodesRepositoryImpl implements EpisodesRepository {
   EpisodesRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<EpisodeModel>>> getEpisodes(String url) async {
+  Future<Either<Failure, EpisodeModel>> getEpisodes(String url) async {
     try {
       final episodes = await remoteDataSource.getMovieEpisodes(url);
       return right(episodes);

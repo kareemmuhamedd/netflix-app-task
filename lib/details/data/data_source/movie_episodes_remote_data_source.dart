@@ -4,22 +4,23 @@ import 'package:flutter_netflix_app/details/data/models/episode_model.dart';
 import '../../../core/errors/exception.dart';
 
 abstract interface class MovieEpisodesRemoteDataSource {
-  Future<List<EpisodeModel>> getMovieEpisodes(String url);
+  Future<EpisodeModel> getMovieEpisodes(String url);
 }
 
-class MovieEpisodesRemoteDataSourceImpl implements MovieEpisodesRemoteDataSource {
+class MovieEpisodesRemoteDataSourceImpl
+    implements MovieEpisodesRemoteDataSource {
   final Dio _dio;
 
   MovieEpisodesRemoteDataSourceImpl(this._dio);
 
   @override
-  Future<List<EpisodeModel>> getMovieEpisodes(String url) async {
+  Future<EpisodeModel> getMovieEpisodes(String url) async {
     try {
+      print('url: $url');
       final response = await _dio.get(url);
-      final List<EpisodeModel> episodes = [];
-      for (var item in response.data) {
-        episodes.add(EpisodeModel.fromJson(item));
-      }
+      final EpisodeModel episodes;
+
+      episodes = EpisodeModel.fromJson(response.data);
       return episodes;
     } catch (e) {
       throw ServerException(e.toString());

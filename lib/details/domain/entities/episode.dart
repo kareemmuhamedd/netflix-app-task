@@ -16,7 +16,7 @@ class EpisodeEntity {
   final int runtime;
   final RatingEntity? rating;
   final ImageDetailsEntity? image;
-  final String summary;
+  final String? summary;
   final LinksEntity? links;
 
   EpisodeEntity({

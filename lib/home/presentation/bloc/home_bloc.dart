@@ -25,7 +25,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final result = await _getAllMovies(NoParams());
     result.fold(
       (failure) {
-        print('errr');
         emit(
         state.copyWith(
           status: HomeStatus.loadFailed,

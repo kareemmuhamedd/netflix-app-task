@@ -39,7 +39,7 @@ class EpisodeModel extends EpisodeEntity {
       image: json['image'] != null
           ? ImageDetailsModel.fromJson(json['image'])
           : null,
-      summary: json['summary'] as String,
+      summary: json['summary'] ?? '',
       links:
           json['_links'] != null ? LinksModel.fromJson(json['_links']) : null,
     );
