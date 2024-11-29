@@ -22,6 +22,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchLoadTvShows event,
     Emitter<SearchState> emit,
   ) async {
+    emit(state.copyWith(status: SearchStatus.loading));
     final result = await _getSearchedMovies(event.query);
     result.fold(
       (failure) {

@@ -8,6 +8,10 @@ import 'package:flutter_netflix_app/home/data/data_source/movies_remote_data_sou
 import 'package:flutter_netflix_app/home/domain/repository/movie_repository.dart';
 import 'package:flutter_netflix_app/home/domain/usecase/get_all_movies.dart';
 import 'package:flutter_netflix_app/home/presentation/bloc/home_bloc.dart';
+import 'package:flutter_netflix_app/search/data/data.dart';
+import 'package:flutter_netflix_app/search/domain/repository/repository.dart';
+import 'package:flutter_netflix_app/search/domain/usecase/get_searched_movie.dart';
+import 'package:flutter_netflix_app/search/presentation/bloc/search_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../details/data/repositories/episodes_repository_impl.dart';
@@ -60,6 +64,29 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton(
     () => MovieDetailsBloc(
       getEpisodes: getIt<GetEpisodes>(),
+    ),
+  );
+
+  /// search feature
+  getIt.registerFactory<SearchedMoviesRemoteDataSource>(
+    () => SearchedMoviesRemoteDataSourceImpl(
+      getIt<Dio>(),
+    ),
+  );
+
+  getIt.registerFactory<SearchedMovieRepository>(
+    () => SearchedMovieRepositoryImpl(
+      getIt<SearchedMoviesRemoteDataSource>(),
+    ),
+  );
+  getIt.registerFactory<GetSearchedMovies>(
+    () => GetSearchedMovies(
+      getIt<SearchedMovieRepository>(),
+    ),
+  );
+  getIt.registerLazySingleton(
+    () => SearchBloc(
+      getSearchedMovies: getIt<GetSearchedMovies>(),
     ),
   );
 }

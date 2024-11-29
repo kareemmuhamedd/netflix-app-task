@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_netflix_app/search/presentation/bloc/search_bloc.dart';
 import 'package:flutter_netflix_app/search/presentation/widgets/search_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/di/dependency_injection.dart';
+import '../../../core/utils/debouncer.dart';
 import '../../../details/presentation/view/movie_details_screen.dart';
-import '../../../home/presentation/bloc/home_bloc.dart';
+import '../../../home/domain/entities/tv_show_response.dart';
 import '../../../home/presentation/widgets/grid_view_item.dart';
+import '../widgets/empty_widget.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -13,7 +16,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: getIt<HomeBloc>()..add(const HomeLoadTvShows()),
+      value: getIt<SearchBloc>(),
       child: const SearchView(),
     );
   }
@@ -27,72 +30,88 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+  late final Debouncer _debouncer;
+
+  @override
+  void initState() {
+    super.initState();
+    _debouncer = Debouncer(milliseconds: 500);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final movies = context.select((HomeBloc bloc) => bloc.state.movies);
     return Scaffold(
       backgroundColor: const Color(0xFF141414),
       appBar: AppBar(
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(50.h),
-          child: const Padding(
-            padding: EdgeInsets.all(13),
-            child: SearchField(),
+          child: Padding(
+            padding: const EdgeInsets.all(13),
+            child: SearchField(
+              onChanged: (query) {
+                _debouncer.run(() {
+                  if (query.isEmpty) {
+                    context.read<SearchBloc>().add(const SearchLoadTvShows(''));
+                  } else {
+                    context.read<SearchBloc>().add(SearchLoadTvShows(query));
+                  }
+                });
+              },
+            ),
           ),
         ),
       ),
-      body: CustomScrollView(
-        slivers: [
-          // const SliverToBoxAdapter(
-          //   child: SearchField(),
-          // ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: Text(
-                "Search Results",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+      body: BlocBuilder<SearchBloc, SearchState>(
+        builder: (context, state) {
+          if (state.status == SearchStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state.status == SearchStatus.loaded &&
+              state.movies.isNotEmpty) {
+            return _buildMoviesGrid(state.movies);
+          } else {
+            return const EmptyWidget();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildMoviesGrid(List<TvShowResponse> movies) {
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          sliver: SliverGrid.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 2 / 3,
             ),
-          ),
-          // Grid View for Movies
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            sliver: SliverGrid.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  childAspectRatio: 2 / 3,
-                ),
-                itemCount: movies.length,
-                itemBuilder: (context, index) {
-                  final movie = movies[index];
-                  return GestureDetector(
-                    onTap: () {
-                      // Navigate to DetailScreen with the selected movie
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MovieDetailsScreen(
-                            movie: movie,
-                          ),
-                        ),
-                      );
-                    },
-                    child: GridViewItem(
-                      thumbnail: movie.show.image.original.isEmpty
-                          ? 'https://wallpaperfx.com/view_image/walle-movie-1280x1024-wallpaper-2731.jpg'
-                          : movie.show.image.original,
-                      title: movie.show.name,
-                      summary: movie.show.summary,
+            itemCount: movies.length,
+            itemBuilder: (context, index) {
+              final movie = movies[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MovieDetailsScreen(movie: movie),
                     ),
                   );
-                }),
+                },
+                child: GridViewItem(
+                  thumbnail: movie.show.image.original.isEmpty
+                      ? 'https://wallpaperfx.com/view_image/walle-movie-1280x1024-wallpaper-2731.jpg'
+                      : movie.show.image.original,
+                  title: movie.show.name,
+                  summary: movie.show.summary,
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
