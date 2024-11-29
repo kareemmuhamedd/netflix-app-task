@@ -52,7 +52,6 @@ class HomeMovieSlideShow extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   child: Stack(
                     children: [
-                      // Using CachedNetworkImage instead of Image.network
                       CachedNetworkImage(
                         imageUrl: movie.show.image.original.isEmpty
                             ? 'https://wallpaperfx.com/view_image/walle-movie-1280x1024-wallpaper-2731.jpg'

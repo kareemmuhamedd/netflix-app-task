@@ -1,5 +1,7 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:app_ui/app_ui.dart';
+import '../../../search/presentation/view/search_screen.dart';
+
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
 
@@ -13,8 +15,20 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             ?.copyWith(fontWeight: AppFontWeight.bold, color: AppColors.red),
         overflow: TextOverflow.ellipsis,
       ),
-      actions: const [
-        Icon(Icons.search),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+            // Navigate to the search screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    const SearchScreen(),
+              ),
+            );
+          },
+        ),
       ],
     );
   }

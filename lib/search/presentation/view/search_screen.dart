@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_netflix_app/search/presentation/bloc/search_bloc.dart';
-import 'package:flutter_netflix_app/search/presentation/widgets/search_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_netflix_app/search/presentation/widgets/search_app_bar.dart';
 import '../../../core/di/dependency_injection.dart';
 import '../../../core/utils/debouncer.dart';
 import '../../../details/presentation/view/movie_details_screen.dart';
@@ -42,25 +41,7 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF141414),
-      appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.h),
-          child: Padding(
-            padding: const EdgeInsets.all(13),
-            child: SearchField(
-              onChanged: (query) {
-                _debouncer.run(() {
-                  if (query.isEmpty) {
-                    context.read<SearchBloc>().add(const SearchLoadTvShows(''));
-                  } else {
-                    context.read<SearchBloc>().add(SearchLoadTvShows(query));
-                  }
-                });
-              },
-            ),
-          ),
-        ),
-      ),
+      appBar: SearchAppBar(debouncer: _debouncer),
       body: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           if (state.status == SearchStatus.loading) {
