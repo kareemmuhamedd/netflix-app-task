@@ -82,7 +82,7 @@ class _HomeMoviesViewState extends State<HomeMoviesView> {
                   },
                   child: GridViewItem(
                     thumbnail: movie.show.image.original.isEmpty
-                        ? AssetsImages.placeHolderImage
+                        ? AssetsImages.placeHolderNetworkImage
                         : movie.show.image.original,
                     title: movie.show.name,
                     summary: movie.show.summary,

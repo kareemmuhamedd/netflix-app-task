@@ -5,6 +5,7 @@ abstract class AssetsImages {
 
   static const placeHolderImage = 'assets/images/placeholder.jpg';
   static const errorImage = 'assets/images/placeholder.jpg';
+  static const placeHolderNetworkImage = 'https://wallpaperfx.com/view_image/walle-movie-1280x1024-wallpaper-2731.jpg';
 }
 
 Widget Function(BuildContext, String)? placeholder = (p0, p1) => Image.asset(

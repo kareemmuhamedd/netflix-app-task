@@ -63,7 +63,6 @@ class PreviousEpisodeDetails extends StatelessWidget {
                     placeholder: placeholder,
                     errorWidget: errorWidget,
                     width: 120.w,
-                    // Set a specific width for the image
                     height: 200.h,
                     imageUrl: previousEpisode?.image?.original! ?? '',
                     fit: BoxFit.cover,

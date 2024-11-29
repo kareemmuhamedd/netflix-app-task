@@ -43,13 +43,9 @@ class SearchField extends StatelessWidget {
           color: Colors.grey,
           fontSize: 14.0,
         ),
-        prefixIcon: prefixIcon ??
-            const Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-        isDense: true,
-        contentPadding: const EdgeInsets.all(6),
+        prefixIcon: prefixIcon,
+        isDense: false, // Set isDense to false for more space vertically
+        contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0), // Increased vertical padding
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(radius ?? 12)),
         ),
