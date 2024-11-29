@@ -12,13 +12,13 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
   MovieDetailsBloc({required GetEpisodes getEpisodes})
       : _getEpisodes = getEpisodes,
         super(const MovieDetailsState.initial()) {
-    on<MovieDetailsLoad>(_movieEpisodesRequested);
+    on<MovieDetailsEpisodeLoad>(_movieEpisodesRequested);
   }
 
   final GetEpisodes _getEpisodes;
 
   Future _movieEpisodesRequested(
-    MovieDetailsLoad event,
+    MovieDetailsEpisodeLoad event,
     Emitter<MovieDetailsState> emit,
   ) async {
     final result = await _getEpisodes(event.url);

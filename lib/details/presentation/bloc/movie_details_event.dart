@@ -5,8 +5,8 @@ sealed class MovieDetailsEvent {
   const MovieDetailsEvent();
 }
 
-final class MovieDetailsLoad extends MovieDetailsEvent {
+final class MovieDetailsEpisodeLoad extends MovieDetailsEvent {
   final String url;
 
-  const MovieDetailsLoad({required this.url});
+  const MovieDetailsEpisodeLoad({required this.url});
 }

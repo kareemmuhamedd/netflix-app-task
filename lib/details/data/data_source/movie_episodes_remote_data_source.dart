@@ -16,6 +16,7 @@ class MovieEpisodesRemoteDataSourceImpl
   @override
   Future<EpisodeModel> getMovieEpisodes(String url) async {
     try {
+      print('url: $url');
       final response = await _dio.get(url);
       final EpisodeModel episodes;
 

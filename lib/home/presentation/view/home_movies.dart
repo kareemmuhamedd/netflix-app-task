@@ -7,8 +7,6 @@ import 'package:flutter_netflix_app/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_netflix_app/home/presentation/widgets/grid_view_item.dart';
 import 'package:flutter_netflix_app/home/presentation/widgets/widgets.dart';
 
-import '../../../details/details_screen.dart';
-
 
 
 class HomeMovies extends StatelessWidget {
@@ -93,7 +91,7 @@ class _HomeMoviesViewState extends State<HomeMoviesView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MovieDetailsView(
+                          builder: (context) => MovieDetailsScreen(
                             movie: movie,
                           ),
                         ),
