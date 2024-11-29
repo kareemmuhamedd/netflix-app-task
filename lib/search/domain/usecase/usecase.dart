@@ -1,0 +1,1 @@
+export 'get_searched_movie.dart';
