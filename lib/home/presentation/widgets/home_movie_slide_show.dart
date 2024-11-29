@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_app/core/constants/assets_images.dart';
 import '../../../details/presentation/view/movie_details_screen.dart';
 import '../../domain/entities/tv_show_response.dart';
 
@@ -54,7 +55,7 @@ class HomeMovieSlideShow extends StatelessWidget {
                     children: [
                       CachedNetworkImage(
                         imageUrl: movie.show.image.original.isEmpty
-                            ? 'https://wallpaperfx.com/view_image/walle-movie-1280x1024-wallpaper-2731.jpg'
+                            ? AssetsImages.placeHolderNetworkImage
                             : movie.show.image.original,
                         fit: BoxFit.cover,
                         width: double.infinity,
