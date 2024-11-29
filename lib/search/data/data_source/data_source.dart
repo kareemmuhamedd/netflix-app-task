@@ -1,0 +1,1 @@
+export 'searched_movie_remote_data_source.dart';
